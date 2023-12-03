@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card">
+      <div class="card-image">
+        <img src="/images/addbook.png" alt="image for addbook project library">
+        <span class="card-title add-book" style="font-weight: bolder;">
+          agregar libro
+        </span>
+      </div>
+      <form autocomplete="off" action="/book/add" method="post">
+        <div class="card-content">
+          <div class='input-field'>
+            <label for='book-name'>Nombre de libro</label>
+            <input
+              placeholder='nombre del libro aqui'
+              id='book-name'
+              name='name'
+              type='text'
+              class="validate"
+              value="{{ book.name }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es necesario ingresar el nombre del libro"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.name }}
+            <span style="color: crimson;">Error: {{ errorModel.name }}</span>
+            {{/if}}
+          </div>
+          <div class='input-field'>
+            <label for='book-description'>
+              Descripción del libro
+            </label>
+            <textarea
+              id='book-description'
+              name='description'
+              class="materialize-textarea validate" required>{{book.description}}</textarea>
+              <span 
+              class="helper-text"
+              data-error="Debe ingresar una descripción"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.description }}
+            <span style="color: crimson;">Error: {{ errorModel.description }}</span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="card-action">
+          <button type="submit" class="blue darken-3 waves-effect waves-light btn">
+            <i class="material-icons left">note_add</i> Agregar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
