@@ -8,23 +8,19 @@ import bookModel from './book.model';
 
 // GET '/book/addForm'
 // GET '/book/add'
-const addForm = (req, res) => {
-  res.render('book/addView');
-};
 
-// GET "/book"
 // GET "/book"
 const showDashboard = async (req, res) => {
   // Consultado todos los proyectos
   const book = await bookModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de libros');
-  res.render('book/dashboardViews', { book });
+  res.render('book/dashboardViews', { book, title: 'Biblos | Books' });
 };
 
 // GET "/project/add"
 const add = (req, res) => {
-  res.render('book/addbook');
+  res.render('book/addbook', { title: 'Biblos | Add' });
 };
 
 // POST "/project/add"
@@ -59,8 +55,10 @@ const addPost = async (req, res) => {
     log.info(`Se carga libro ${savedbook}`);
     // Se registra en el log el redireccionamiento
     log.info('Se redirecciona el sistema a /book');
+    // Agregando mensaje flash
+    req.flash('successMessage', 'Libro agregado con exito');
     // Se redirecciona el sistema a la ruta '/book'
-    return res.redirect('/book/showDashboard');
+    return res.redirect('/book');
   } catch (error) {
     log.error(
       'ln 53 book.controller: Error al guardar proyecto en la base de datos',
@@ -86,7 +84,7 @@ const edit = async (req, res) => {
     // Se manda a renderizar la vista de edición
     // res.render('book/editView', book);
     log.info(`libro encontrado con el id: ${id}`);
-    return res.render('book/editView', { book });
+    return res.render('book/editView', { book, title: 'Biblioteca | Edit' });
   } catch (error) {
     log.error('Ocurre un error en: metodo "error" de book.controller');
     return res.status(500).json(error);
@@ -130,6 +128,8 @@ const editPut = async (req, res) => {
     // Se salvan los cambios
     log.info(`Actualizando libro con id: ${id}`);
     await book.save();
+    // Generando mensaje flash
+    req.flash('successMessage', ' Libro editado');
     return res.redirect(`/book/edit/${id}`);
   } catch (error) {
     log.error(`Error al actualizar proyecto con id: ${id}`);
@@ -142,6 +142,8 @@ const deleteBook = async (req, res) => {
   // Usando el modelo para borrar el proyecto
   try {
     const result = await bookModel.findByIdAndRemove(id);
+    // Agregando mensaje flash
+    req.flash('successMessage', ' Libro borrado con exito');
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(error);
@@ -155,6 +157,5 @@ export default {
   addPost,
   edit,
   editPut,
-  addForm,
   deleteBook,
 };
