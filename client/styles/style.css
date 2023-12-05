@@ -23,8 +23,34 @@ h1 {
   margin-right: 10px; /* Add some space between the image and text if desired */
   border-radius: 25px;
 }
-.card-title.add-project{
+
+.card-title .add-project{
   color:#FFF;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
   font: 24px;
+}
+
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 1.5%;
+  left:82%;
+}
+
+.card-title {
+  z-index: 2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Ajusta el último valor para controlar la opacidad */
+  z-index: 1;
+}
+
+.card-action {
+  justify-content: space-around !important;
 }
