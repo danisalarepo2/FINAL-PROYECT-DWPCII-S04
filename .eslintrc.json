@@ -3,17 +3,18 @@
     "plugins": ["prettier"],
     "env": {
         "browser": true,
-        "es2021": true,
+        "es6": true,
         "node": true
     },
-    "extends": "airbnb-base",
+    "extends": ["airbnb-base", "prettier"],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {
         "no-console":"off",
-        "prettier/prettier": ["error"]
+        "prettier/prettier": ["error"],
+        "no-underscore-dangle": ["error", { "allow": ["_id"] }]
     },
     "globals": {
         "_rootdir": "readonly",
