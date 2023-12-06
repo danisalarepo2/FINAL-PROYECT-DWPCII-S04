@@ -20,7 +20,7 @@ const showDashboard = async (req, res) => {
 
 // GET "/project/add"
 const add = (req, res) => {
-  res.render('book/addbook', { title: 'Bibliotec | Add' });
+  res.render('book/addbook', { title: 'Agregar' });
 };
 
 // POST "/project/add"
@@ -84,7 +84,7 @@ const edit = async (req, res) => {
     // Se manda a renderizar la vista de edición
     // res.render('book/editView', book);
     log.info(`libro encontrado con el id: ${id}`);
-    return res.render('book/editView', { book, title: 'Bibliotec | Edit' });
+    return res.render('book/editView', { book, title: 'Editar' });
   } catch (error) {
     log.error('Ocurre un error en: metodo "error" de book.controller');
     return res.status(500).json(error);
@@ -156,7 +156,7 @@ const deleteBook = async (req, res) => {
 
 // GET "/book/search"
 const search = async (req, res) => {
-  res.render('book/searchbook', { title: 'Bibliotec | Search' });
+  res.render('book/searchbook', { title: 'Buscar' });
 };
 
 // post "/book/search"
@@ -170,7 +170,7 @@ const resultpost = async (req, res) => {
       .exec();
     // res.json(book);
     res.render('book/searchbook', {
-      title: 'Bibliotec | Found',
+      title: 'Buscar',
       name: searchTerm,
       value: searchTerm,
       book,

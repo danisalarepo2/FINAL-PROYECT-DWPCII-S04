@@ -9,7 +9,7 @@ const showDashboard = async (req, res) => {
   const user = await userModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de user');
-  res.render('user/userViews', { user, title: 'Bibliotec | user' });
+  res.render('user/userViews', { user, title: 'Usuario' });
 };
 const addForm = (req, res) => {
   res.render('user/searchuser');
@@ -18,7 +18,7 @@ const addForm = (req, res) => {
 const login = (req, res) => {
   // Sirve el formulario de login
   log.info('Se entrega el formulario login');
-  res.render('user/login', { title: 'Bibliotec | Login' });
+  res.render('user/login', { title: 'Registro' });
 };
 
 // Get '/user/logout'
@@ -29,7 +29,7 @@ const logout = (req, res) => {
 // Get '/user/register'
 const register = (req, res) => {
   log.info('Se entrega formulario de registro');
-  res.render('user/register', { title: 'Bibliotec | Register' });
+  res.render('user/register', { title: 'Registro' });
 };
 
 // POST '/user/register'
