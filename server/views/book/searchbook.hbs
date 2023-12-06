@@ -1,0 +1,21 @@
+<div class="row">
+  <form action="/book/search" method="post">
+    <div class="col s12 m12 l12 valign-wrapper">
+      <div class="col s10 m9 l10 input-field">
+        <input id="search" type="search" class="validate" name="name" value="{{value}}" required minlength="1">
+        <span 
+              class="helper-text"
+              data-error="Es necesario ingresar el titulo del libro a buscar"
+              data-success="✅ Correcto"
+              ></span>
+        <label for="search">Buscar Libros</label>
+      </div>
+      <div class="col s2 m3 l2">
+        <button class="btn waves-effect waves-light btn-floating" type="submit"> <i class="material-icons">search</i></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+{{> _book}}
