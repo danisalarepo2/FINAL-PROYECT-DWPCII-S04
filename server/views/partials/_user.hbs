@@ -1,0 +1,56 @@
+<div class="row">
+  {{#each user}}
+    <div class="col s12 m6 l6">
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="/images/user.png" alt="Usuario" style="height: 100%; width: auto;">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <span class="card-title">{{firstName}}</span>
+            <table class="responsive-table">
+              <tbody>
+                <tr>
+                  <td><strong>nombres:</strong></td>
+                  <td>{{firstName}}</td>
+                </tr>
+                <tr>
+                  <td><strong>apellidos:</strong></td>
+                  <td>{{lastname}}</td>
+                </tr>
+                <tr>
+                  <td><strong>correo:</strong></td>
+                  <td>{{mail}}</td>
+                </tr>
+                <tr>
+                  <td><strong>codigo de estudiante</strong></td>
+                  <td>{{code}}</td>
+                </tr>
+                <tr>
+                  <td><strong>grado:</strong></td>
+                  <td>{{grade}}</td>
+                </tr>
+                <tr>
+                  <td><strong>seccion:</strong></td>
+                  <td>{{section}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> 
+             <div class="card-action valign-wrapper">
+          <a href="/user/edit/{{_id}}" class="teal-text valign-wrapper">
+            <i class="material-icons">edit</i>
+            <span>Editar usuario</span>
+          </a>
+          <a href="javascript: deleteUser('{{_id}}')" class="red-text valign-wrapper">
+            <i class="material-icons">delete</i>
+            <span>Borrar usuario</span>
+          </a>
+        </div>       
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <h1>Sin busqueda de usuario.</h1>
+  {{/each}}
+</div>
