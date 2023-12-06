@@ -20,15 +20,6 @@ const bookSchema = new Schema({
     // siempre se ocupa que no quieras un espacio vacio
     required: true,
   },
-  categoria: {
-    type: String,
-    required: true,
-  },
-  isbn: {
-    type: String,
-    // siempre se ocupa que no quieras un espacio vacio
-    required: true,
-  },
   numerocopias: {
     type: String,
     required: true,
