@@ -10,7 +10,7 @@ const home = (req, res) => {
 // GET "/about"
 const about = (req, res) => {
   res.render('home/aboutView', {
-    title: 'Bibliotec | About',
+    title: 'Acerca de ',
     appVersion: '1.0.0',
   });
 };
