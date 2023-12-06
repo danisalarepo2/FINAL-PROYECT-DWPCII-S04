@@ -1,28 +1,35 @@
 <h1>Listado de libros</h1>
 <div class="row">
   {{#each book}}
-    <div class="col s12">
-      <div class="card teal darken-4">
-        <div class="card-content teal-text text-lighten-5">
+    <div class="col s12 m5 l6">
+      <div class="card hoverable">
+        <div class="card-image">
+          <div class="overlay"></div>
+          <img class="responsive-img" src="/images/books.jpg" alt="{{name}}">
           <span class="card-title">{{name}}</span>
-          <p>{{description}}</p>
         </div>
-        <div class="card-action">
-					<a href="/book/edit/{{_id}}">
-            <i class="material-icons" 
-              style = "display: inline-flex; vertical-align: sub;">edit</i>
-            <span >Editar libro</span>
+        <div class="card-content">
+          <div class="divider"></div>
+          <br>
+          <p>Autor:</strong> {{autor}}</p>
+          <p><strong>Categoría:</strong> {{categoria}}</p>
+          <p><strong>ISBN:</strong> {{isbn}}</p>
+          {{!-- <p><strong>Existencias:</strong> {{numerocopias}}</p> --}}
+          <p><strong>Descripción:</strong> {{description}}</p>
+        </div>
+        <div class="card-action valign-wrapper">
+          <a href="/book/edit/{{_id}}" class="teal-text valign-wrapper">
+            <i class="material-icons">edit</i>
+            <span>Editar libro</span>
           </a>
-          <a href="javascript: deleteBook('{{_id}}')" class="inline">
-            <i class="material-icons" 
-	            style = "display: inline-flex; vertical-align: sub;">
-	            delete</i>
-            Borrar libro
+          <a href="javascript: deleteBook('{{_id}}')" class="red-text valign-wrapper">
+            <i class="material-icons">delete</i>
+            <span>Borrar libro</span>
           </a>
         </div>
       </div>
     </div>
   {{else}}
-    <p>No hay proyectos que listar.</p>
+    <p>No hay libros que listar.</p>
   {{/each}}
 </div>
