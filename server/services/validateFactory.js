@@ -1,3 +1,6 @@
+// import winston
+import log from '../config/winston';
+
 // Usando el patrón Factory para la creación de un middelware de validación
 // lo que sigue es una función que regresa una función
 const Validator =
@@ -13,9 +16,11 @@ const Validator =
       });
       // Se inyecta el objeto validado en la petición
       req.validData = validData;
+      log.info('Validacion exitosa del registro');
     } catch (error) {
       // Creando objeto de validación
       req.errorData = error;
+      log.error('Error en la validacion del registro');
     }
     // Se invoca al siguiente middleware de la cadena
     return next();

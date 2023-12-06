@@ -14,6 +14,8 @@ import WebpackHotMiddleware from 'webpack-hot-middleware';
 
 // Importing webpack configuration
 import webpackConfig from '../webpack.dev.config';
+// Importing config session
+import configSession from './config/configSessions';
 // Importing template-engine
 import configTemplateEngine from './config/templateEngine';
 // Importing winston logger
@@ -86,6 +88,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // Enable post and delete verbs
 app.use(methodOverride('_method'));
+// Habilitando manejo de sesiones y mensajes flash
+configSession(app);
 // Crea un server de archivos estaticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
