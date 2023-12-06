@@ -1,11 +1,11 @@
-<h1>Listado de libros</h1>
+<h1>BIBLIOTECA</h1>
 <div class="row">
   {{#each book}}
     <div class="col s12 m5 l6">
       <div class="card hoverable">
         <div class="card-image">
           <div class="overlay"></div>
-          <img class="responsive-img" src="/images/books.jpg" alt="{{name}}">
+          <img class="responsive-img" src="/images/books.png" alt="{{name}}">
           <span class="card-title">{{name}}</span>
         </div>
         <div class="card-content">
@@ -30,6 +30,6 @@
       </div>
     </div>
   {{else}}
-    <p>No hay libros que listar.</p>
+    <p>Biblioteca vacia</p>
   {{/each}}
 </div>
