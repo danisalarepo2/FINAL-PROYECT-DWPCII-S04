@@ -15,12 +15,12 @@ const showDashboard = async (req, res) => {
   const book = await bookModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de libros');
-  res.render('book/dashboardViews', { book, title: 'Biblos | Books' });
+  res.render('book/dashboardViews', { book, title: ' | Books' });
 };
 
 // GET "/project/add"
 const add = (req, res) => {
-  res.render('book/addbook', { title: 'Biblos | Add' });
+  res.render('book/addbook', { title: 'Bibliotec | Add' });
 };
 
 // POST "/project/add"
@@ -84,7 +84,7 @@ const edit = async (req, res) => {
     // Se manda a renderizar la vista de edición
     // res.render('book/editView', book);
     log.info(`libro encontrado con el id: ${id}`);
-    return res.render('book/editView', { book, title: 'Biblioteca | Edit' });
+    return res.render('book/editView', { book, title: 'Bibliotec | Edit' });
   } catch (error) {
     log.error('Ocurre un error en: metodo "error" de book.controller');
     return res.status(500).json(error);
@@ -124,12 +124,16 @@ const editPut = async (req, res) => {
   const { validData: newbook } = req;
   book.name = newbook.name;
   book.description = newbook.description;
+  book.autor = newbook.autor;
+  book.categoria = newbook.categoria;
+  book.isbn = newbook.isbn;
+  book.numerocopias = newbook.numerocopias;
   try {
     // Se salvan los cambios
     log.info(`Actualizando libro con id: ${id}`);
     await book.save();
     // Generando mensaje flash
-    req.flash('successMessage', ' Libro editado');
+    req.flash('successMessage', ' Libro editado con exito');
     return res.redirect(`/book/edit/${id}`);
   } catch (error) {
     log.error(`Error al actualizar proyecto con id: ${id}`);
@@ -149,6 +153,34 @@ const deleteBook = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+
+// GET "/book/search"
+const search = async (req, res) => {
+  res.render('book/searchbook', { title: 'Bibliotec | Search' });
+};
+
+// post "/book/search"
+const resultpost = async (req, res) => {
+  try {
+    console.log(req.body);
+    const searchTerm = req.body.name;
+    const book = await await bookModel
+      .find({ name: new RegExp(searchTerm, 'i') })
+      .lean()
+      .exec();
+    // res.json(book);
+    res.render('book/searchbook', {
+      title: 'Bibliotec | Found',
+      name: searchTerm,
+      value: searchTerm,
+      book,
+    }); // Renderiza los resultados de la búsqueda
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error en la búsqueda de libros');
+  }
+};
+
 // Controlador user
 export default {
   // Action Methods
@@ -158,4 +190,6 @@ export default {
   edit,
   editPut,
   deleteBook,
+  search,
+  resultpost,
 };
