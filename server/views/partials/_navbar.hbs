@@ -88,6 +88,7 @@
           </a>
         </li>
         <!-- Dropdown Trigger -->
+        {{#if user}}
         <li>
           <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
             Libros
@@ -99,6 +100,7 @@
             </i>
           </a>
         </li>
+        {{/if}}
         <!-- User Dropdown -->
         <li>
           <a class="dropdown-trigger" href="#!" data-target="user-dropdown-menu">
@@ -125,11 +127,12 @@
             <i class="large material-icons left">
               home
             </i>
-             
+            Home
           </a>
         </li>
         {{#unless user}}
         {{else}}
+        {{#if user}}
         <li class="divider"></li>
         <li>
           <a href="/book">
@@ -147,6 +150,7 @@
             Agregar Libro
           </a>
         </li>
+        {{/if}}
         {{/unless}}
         <li class="divider"></li>
         {{#unless user}}

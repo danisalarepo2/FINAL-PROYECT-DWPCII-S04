@@ -18,9 +18,6 @@ const addForm = (req, res) => {
 const login = (req, res) => {
   // Sirve el formulario de login
   log.info('Se entrega el formulario login');
-  if (req.query.message) {
-    res.locals.passportError = `Ups, ${req.flash('error')}`;
-  }
   res.render('user/login', { title: 'Registro' });
 };
 
