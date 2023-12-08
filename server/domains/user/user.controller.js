@@ -141,6 +141,22 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// GET user/confirm/<token>
+const confirm = async (req, res) => {
+  // Extrayendo datos de validación
+  const { validData, errorData } = req;
+  if (errorData) return res.json(errorData);
+  const { token } = validData;
+  // Buscando si existe un usuario con ese token
+  const user = await userModel.findByToken(token);
+  if (!user) {
+    return res.send('USER WITH TOKEN NOT FOUND');
+  }
+  // Activate user
+  await user.activate();
+  return res.send(`Usuario: ${user.firstName} Valido`);
+};
+
 export default {
   showDashboard,
   login,
@@ -151,4 +167,5 @@ export default {
   editPut,
   deleteUser,
   addForm,
+  confirm,
 };

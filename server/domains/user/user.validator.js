@@ -46,9 +46,30 @@ const sigUpGetter = (req) => {
   };
 };
 
+// Crear un esquema de validacion para el token de confirmacion
+const tokenSchema = Yup.object().shape({
+  token: Yup.string().length(64).required(),
+});
+
+// Middleware de extracción para token de confirmación
+
+const getToken = (req) => {
+  // Desestructuramos la informacion
+  const { token } = req.params;
+  // Se regresa el objeto de signip
+  return {
+    token,
+  };
+};
+
+const token = {
+  schema: tokenSchema,
+  getObject: getToken,
+};
+
 const signUp = {
   schema: signUpSchema,
   getObject: sigUpGetter,
 };
 
-export default { signUp };
+export default { signUp, token };

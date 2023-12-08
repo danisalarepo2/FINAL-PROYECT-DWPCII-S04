@@ -12,13 +12,14 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    firstName: { type: String, required: true },
-    lastname: { type: String, required: true },
-    grade: { type: String, required: true },
-    section: { type: String, required: true },
+    firstName: { type: String, required: true, lowercase: true },
+    lastname: { type: String, required: true, lowercase: true },
+    grade: { type: String, required: true, lowercase: true },
+    section: { type: String, required: true, lowercase: true },
     mail: {
       type: String,
       unique: true,
+      lowercase: true,
       required: [true, 'Es necesario ingresar email'],
       validate: {
         validator: (mail) => validator.isEmail(mail),
@@ -35,6 +36,7 @@ const UserSchema = new Schema(
     code: {
       type: String,
       required: [true, 'Es necesario ingresar un código de estudiante'],
+      lowercase: true,
       trim: true,
       minLength: [
         9,
@@ -43,10 +45,9 @@ const UserSchema = new Schema(
       role: {
         type: String,
         enum: ['user', 'admin'],
-        message: '{VALUE} no es un rol valido',
+        message: '{VALUE} no es un rol válido',
         default: 'user',
       },
-      // Resto de la validación...
     },
     emailConfirmationToken: String,
     emailConfirmationAt: Date,
@@ -67,24 +68,44 @@ UserSchema.methods = {
     return {
       id: this._id,
       firstName: this.firstName,
-      lastname: this.lastName,
+      lastname: this.lastname,
       grade: this.grade,
-      section: this.section,
       code: this.code,
+      section: this.section,
       mail: this.mail,
       role: this.role,
+      password: this.password,
       emailConfirmationToken: this.generateConfirmationToken(),
       emailConfirmationAt: this.emailConfirmationAt,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };
   },
+  // Metodo para activar el usuario
+  async activate() {
+    await this.updateOne({
+      emailConfirmationToken: null,
+      // updatedAt: new Date(),
+      emailConfirmationAt: new Date(),
+    }).exec();
+  },
 };
 
+// statics Methods
+UserSchema.statics.findByToken = async function findByToken(token) {
+  // "this" hace referencia al modelo es decir
+  // a todo el conjunto de documentos
+  return this.findOne({ emailConfirmationToken: token });
+};
+
+// Hooks
 UserSchema.pre('save', function presave(next) {
+  // Encriptar el password
   if (this.isModified('password')) {
     this.password = this.hashPassword();
   }
+  // Creando el token de confirmacion
+  this.emailConfirmationToken = this.generateConfirmationToken();
   return next();
 });
 
@@ -104,9 +125,9 @@ UserSchema.post('save', async function sendConfirmationMail() {
 
   // Configuring mail data
   mailSender.mail = {
-    from: 'bibliotec@gamadero.tecnm.mx',
+    from: 'diego.itgam@gamadero.tecnm.mx',
     to: this.mail,
-    subject: 'Confirmacion de Correo',
+    subject: 'Account confirmation',
   };
 
   try {
@@ -124,11 +145,11 @@ UserSchema.post('save', async function sendConfirmationMail() {
       enlace: ${configKeys.APP_URL}/user/confirm/${this.token}`,
     );
 
-    if (!info) return log.info('😭 No se pudo enviar el correo');
-    log.info('🎉 Correo enviado con exito');
+    if (!info) return log.info('💔 No se pudo enviar el correo');
+    log.info('🔥 Correo enviado con exito');
     return info;
   } catch (error) {
-    log.error(`🚨 ERROR al enviar correo: ${error.message}`);
+    log.error(`🚧 ERROR al enviar correo: ${error.message}`);
     return null;
   }
 });

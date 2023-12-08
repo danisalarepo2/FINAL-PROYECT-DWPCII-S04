@@ -2,7 +2,7 @@
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
-// Template engine de proposiot general
+// Template engine de proposito general
 import Handlebars from 'handlebars';
 import appRoot from 'app-root-path';
 import log from '../config/winston';

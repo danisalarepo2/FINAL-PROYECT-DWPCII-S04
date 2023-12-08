@@ -47,5 +47,12 @@ router.put(
 // DELETE "/user/:id"
 router.delete('/:id', userController.deleteUser);
 
+// GET 'user/confirm/<token>'
+router.get(
+  '/confirm/:token',
+  ValidateFactory(userValidator.token),
+  userController.confirm,
+);
+
 // Exporto este tramo de ruta
 export default router;
