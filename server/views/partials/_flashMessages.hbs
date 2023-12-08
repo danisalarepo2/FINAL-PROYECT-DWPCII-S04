@@ -3,7 +3,7 @@
     document.querySelector('script[src="/bundle.js"]').onload = ()=>{
         M.toast({
             html: "<i class='material-icons'>done</i> {{ successMessage }}",
-            classes: 'card-panel green accent-4 rounded white-text',
+            classes: 'card-panel green accent-4 white-text',
             displayLenght: 3000
         })
     }
@@ -12,21 +12,21 @@
 {{#if infoMessage}}
   <script>
     document.querySelector('script[src="/bundle.js"]').onload = ()=>{
-      M.toast({html: "<i class='material-icons'>info</i> {{infoMessage}}", classes: 'card-panel blue accent-4 rounded white-text', displayLength: 3000 })
+      M.toast({html: "<i class='material-icons'>info</i> {{infoMessage}}", classes: 'card-panel blue accent-4 white-text', displayLength: 3000 })
     }
   </script>
 {{/if}}
 {{#if errorMessage}}
   <script>
     document.querySelector('script[src="/bundle.js"]').onload = ()=>{
-      M.toast({html: "<i class='material-icons'>error</i> {{errorMessage}}", classes: 'card-panel red accent-4 rounded white-text', displayLength: 3000})
+      M.toast({html: "<i class='material-icons'>error</i> {{errorMessage}}", classes: 'card-panel red accent-4 white-text', displayLength: 3000})
     }
   </script>
 {{/if}}
 {{#if passportError}}
   <script>
     document.querySelector('script[src="/bundle.js"]').onload = ()=>{
-      M.toast({html: '{{passportError}}', classes: 'card-panel red accent-4 rounded white-text', displayLength: 3000})
+      M.toast({html: '{{passportError}}', classes: 'card-panel red accent-4 white-text', displayLength: 3000})
     }
   </script>
 {{/if}}

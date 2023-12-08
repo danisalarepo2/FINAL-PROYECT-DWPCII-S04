@@ -53,8 +53,49 @@
           </div>
             
 
-          
-           
+          <div class="card-content">
+          <div class='input-field'>
+            <label for='book-categoria'>ingrese la categoria</label>
+            <input
+              placeholder='ingrese una categoria'
+              id='book-categoria'
+              name='categoria'
+              type='text'
+              class="validate"
+              value="{{ book.categoria }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es necesario ingresar una categoria del libro"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.name }}
+            <span style="color: crimson;">Error: {{ errorModel.name }}</span>
+            {{/if}}
+          </div>
+
+           <div class="card-content">
+          <div class='input-field'>
+            <label for='book-isbn'>ingrese el ISBN del libro</label>
+            <input
+              placeholder='ISBN del libro'
+              id='book-isbn'
+              name='isbn'
+              type='text'
+              class="validate"
+              value="{{ book.isbn }}"
+              required
+            />
+            <span 
+              class="helper-text"
+              data-error="Es necesario ingresar el ISBN del libro"
+              data-success="✅ Correcto"
+              ></span>
+            {{#if errorModel.name }}
+            <span style="color: crimson;">Error: {{ errorModel.name }}</span>
+            {{/if}}
+          </div>
 
             <div class="card-content">
           <div class='input-field'>
