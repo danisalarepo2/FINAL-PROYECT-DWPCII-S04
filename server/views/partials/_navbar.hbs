@@ -1,5 +1,7 @@
 <!-- Dropdow para menu "Projectos" -->
 <ul id="dropdownMenu" class="dropdown-content">
+  {{#unless user}}
+  {{else}}
   <li>
     <a href="/book">
       <i class="large material-icons" style="margin: 2px;">
@@ -17,10 +19,12 @@
       Agregar Libro
     </a>
   </li>
+  {{/unless}}
 </ul>
 
 <!-- Dropdow para menu "Usuarios" -->
 <ul id="user-dropdown-menu" class="dropdown-content">
+  {{#unless user}}
         <li>
           <a href="/user/login">
             <i class="material-icons left">
@@ -37,6 +41,7 @@
             Registrarse
           </a>
         </li>
+        {{else}}
          <li>
           <a href="/user">
             <i class="large material-icons left">
@@ -52,7 +57,8 @@
             </i>
             Cerrar Sesión
           </a>
-        </li>       
+        </li>
+        {{/unless}}      
 </ul>
 <nav class="light-green">
   <div class="container">
@@ -122,6 +128,8 @@
              
           </a>
         </li>
+        {{#unless user}}
+        {{else}}
         <li class="divider"></li>
         <li>
           <a href="/book">
@@ -139,7 +147,9 @@
             Agregar Libro
           </a>
         </li>
+        {{/unless}}
         <li class="divider"></li>
+        {{#unless user}}
         <li>
           <a href="/user/login">
             <i class="material-icons left">
@@ -156,6 +166,7 @@
             Registrarse
           </a>
         </li>
+        {{else}}
         <li>
           <a href="/user/dashboard">
             <i class="large material-icons left">
@@ -172,15 +183,7 @@
             Cerrar Sesión
           </a>
         </li>
-        
-        <li>
-          <a href="/user">
-            <i class="large material-icons left">
-              list
-            </i>
-            listar usuario
-          </a>
-        </li>
+        {{/unless}}
         <li class="divider"></li>
         <li>
           <a href="/about">

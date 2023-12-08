@@ -62,5 +62,8 @@ router.get(
 // POST user/login
 router.post('/login', authLocal);
 
+// GET user/logout
+router.get('/logout', userController.logout);
+
 // Exporto este tramo de ruta
 export default router;

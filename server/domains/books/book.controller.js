@@ -15,6 +15,10 @@ const showDashboard = async (req, res) => {
   const book = await bookModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de libros');
+  // Log de los query params
+  if (req.query.message) {
+    res.locals.successMessage = `Bienvenido a Projnotes ${req.user.firstName}`;
+  }
   res.render('book/dashboardViews', { book, title: ' | Books' });
 };
 

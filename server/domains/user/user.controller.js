@@ -18,12 +18,26 @@ const addForm = (req, res) => {
 const login = (req, res) => {
   // Sirve el formulario de login
   log.info('Se entrega el formulario login');
+  if (req.query.message) {
+    res.locals.passportError = `Ups, ${req.flash('error')}`;
+  }
   res.render('user/login', { title: 'Registro' });
 };
 
-// Get '/user/logout'
+// GET '/user/logout'
 const logout = (req, res) => {
-  res.send("🚧 UNDER CONSTRUCTION GET '/user/logout'🚧");
+  // Passport incrusta en la petición el
+  // método logout aqui se ejecuta
+  // REF: https://www.passportjs.org/concepts/authentication/logout/
+  req.logout((err) => {
+    if (err) {
+      return res.json(err);
+    }
+    // Creamos mensaje de flash
+    req.flash('successMessage', 'Ha cerrado sesión correctamente');
+    // Redireccionamos al login
+    return res.redirect('/user/login');
+  });
 };
 
 // Get '/user/register'
