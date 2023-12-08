@@ -4,6 +4,10 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import uniqueValidator from 'mongoose-unique-validator';
 
+import log from '../../config/winston';
+import configKeys from '../../config/configKeys';
+import MailSender from '../../services/mailSender';
+
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
@@ -57,7 +61,7 @@ UserSchema.methods = {
     return bcrypt.hashSync(this.password, 10);
   },
   generateConfirmationToken() {
-    return crypto.randomBytes(64).toString('hex');
+    return crypto.randomBytes(32).toString('hex');
   },
   toJSON() {
     return {
@@ -82,6 +86,51 @@ UserSchema.pre('save', function presave(next) {
     this.password = this.hashPassword();
   }
   return next();
+});
+
+UserSchema.post('save', async function sendConfirmationMail() {
+  // Creating Mail options
+  const options = {
+    host: configKeys.SMTP_HOST,
+    port: configKeys.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: configKeys.MAIL_USERNAME,
+      pass: configKeys.MAIL_PASSWORD,
+    },
+  };
+
+  const mailSender = new MailSender(options);
+
+  // Configuring mail data
+  mailSender.mail = {
+    from: 'bibliotec@gamadero.tecnm.mx',
+    to: this.mail,
+    subject: 'Confirmacion de Correo',
+  };
+
+  try {
+    const info = await mailSender.sendMail(
+      'confirmation',
+      {
+        user: this.firstName,
+        lastname: this.lastname,
+        mail: this.mail,
+        token: this.emailConfirmationToken,
+        host: configKeys.APP_URL,
+      },
+      `Estimado ${this.firstName} ${this.lastname} 
+      para validar tu cuenta debes hacer clic en el siguiente
+      enlace: ${configKeys.APP_URL}/user/confirm/${this.token}`,
+    );
+
+    if (!info) return log.info('😭 No se pudo enviar el correo');
+    log.info('🎉 Correo enviado con exito');
+    return info;
+  } catch (error) {
+    log.error(`🚨 ERROR al enviar correo: ${error.message}`);
+    return null;
+  }
 });
 
 export default mongoose.model('User', UserSchema);
