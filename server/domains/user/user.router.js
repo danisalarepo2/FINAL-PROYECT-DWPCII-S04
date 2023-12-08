@@ -32,12 +32,6 @@ router.post(
   userController.registerPost,
 );
 
-// GET "/user/search"
-router.get('/search', userController.search);
-
-// POST "/user/search"
-router.post('/search', userController.resultpost);
-
 // GET "/project/edit/:id"
 router.get('/edit/:id', userController.edit);
 // PUT "/user/edit/:id"

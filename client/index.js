@@ -20,7 +20,7 @@ if (window.location.pathname === '/book') {
   window.deleteBook = deleteBook;
 }
 
-if (window.location.pathname === '/user/search') {
+if (window.location.pathname === '/user') {
   window.deleteUser = deleteUser;
 }
 

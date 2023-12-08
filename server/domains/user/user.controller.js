@@ -9,7 +9,7 @@ const showDashboard = async (req, res) => {
   const user = await userModel.find({}).lean().exec();
   // Enviando los proyectos al cliente en JSON
   log.info('Se entrega dashboard de user');
-  res.render('user/userViews', { user, title: 'Bibliotec | user' });
+  res.render('user/userViews', { user, title: 'Usuario' });
 };
 const addForm = (req, res) => {
   res.render('user/searchuser');
@@ -18,7 +18,7 @@ const addForm = (req, res) => {
 const login = (req, res) => {
   // Sirve el formulario de login
   log.info('Se entrega el formulario login');
-  res.render('user/login', { title: 'Bibliotec | Login' });
+  res.render('user/login', { title: 'Registro' });
 };
 
 // Get '/user/logout'
@@ -29,7 +29,7 @@ const logout = (req, res) => {
 // Get '/user/register'
 const register = (req, res) => {
   log.info('Se entrega formulario de registro');
-  res.render('user/register', { title: 'Bibliotec | Register' });
+  res.render('user/register', { title: 'Registro' });
 };
 
 // POST '/user/register'
@@ -57,37 +57,6 @@ const registerPost = async (req, res) => {
       name: error.name,
       errors: error.errors,
     });
-  }
-};
-
-// GET "/user/search"
-const search = async (req, res) => {
-  res.render('user/searchuser', { title: 'User | Search' });
-};
-
-// GET "/user/search"
-const resultpost = async (req, res) => {
-  try {
-    console.log(req.body.name);
-    const searchTerm = req.body.name;
-    const user = await userModel
-      .find({
-        $or: [
-          { firstName: new RegExp(searchTerm, 'i') },
-          { code: new RegExp(searchTerm, 'i') },
-        ],
-      })
-      .lean()
-      .exec();
-    // res.json(user);
-    res.render('user/searchuser', {
-      title: 'user | Found',
-      value: searchTerm,
-      user,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error en la búsqueda de usuarios');
   }
 };
 
@@ -173,8 +142,6 @@ export default {
   logout,
   register,
   registerPost,
-  search,
-  resultpost,
   edit,
   editPut,
   deleteUser,

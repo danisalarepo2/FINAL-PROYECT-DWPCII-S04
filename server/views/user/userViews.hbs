@@ -1,0 +1,35 @@
+<h1>Listado de libros</h1>
+<div class="row">
+  {{#each user}}
+    <div class="col s12 m5 l6">
+      <div class="card hoverable">
+        <div class="card-image">
+          <div class="overlay"></div>
+          <img class="responsive-img" src="/images/user1.jpeg" alt="{{firstName}}">
+          <span class="card-title">{{firstName}}</span>
+        </div>
+        <div class="card-content">
+          <div class="divider"></div>
+          <br>
+          <p>lastname:</strong> {{lastname}}</p>
+          <p><strong>grade:</strong> {{grade}}</p>
+          <p><strong>code:</strong> {{code}}</p>
+          <p><strong>section:</strong> {{section}}</p>
+          <p><strong>mail:</strong> {{mail}}</p>
+        </div>
+        <div class="card-action valign-wrapper">
+          <a href="/user/edit/{{_id}}" class="teal-text valign-wrapper">
+            <i class="material-icons">edit</i>
+            <span>Editar usuario</span>
+          </a>
+          <a href="javascript: deleteUser('{{_id}}')" class="red-text valign-wrapper">
+            <i class="material-icons">delete</i>
+            <span>Borrar usuario</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <p>No hay libros que listar.</p>
+  {{/each}}
+</div>
